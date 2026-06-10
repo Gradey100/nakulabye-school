@@ -2,18 +2,27 @@ backend:
   name: git-gateway
   branch: main
 
-media_folder: "images/news"
-public_folder: "/images/news"
+media_folder: "images/gallery"
+public_folder: "/images/gallery"
 
 collections:
   - name: "posts"
-    label: "News Posts"
+    label: "📰 News Posts"
     folder: "_posts"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
       - { label: "Title", name: "title", widget: "string", hint: "e.g. Term 2 Update 2026" }
-      - { label: "Date", name: "date", widget: "datetime", date_format: "DD MMMM YYYY", time_format: false, hint: "Date of the update" }
-      - { label: "Summary", name: "summary", widget: "string", hint: "One sentence shown on the news list (e.g. The school begins Term 2 with updates on community challenges)" }
-      - { label: "Content", name: "body", widget: "markdown", hint: "Write your full update here. You can add text, headings, and photos." }
-      - { label: "Photo (optional)", name: "photo", widget: "image", required: false, hint: "Add a photo to go with this update" }
+      - { label: "Date", name: "date", widget: "datetime", date_format: "DD MMMM YYYY", time_format: false }
+      - { label: "Summary", name: "summary", widget: "string", hint: "One sentence shown on the news list" }
+      - { label: "Content", name: "body", widget: "markdown", hint: "Write your full update here" }
+
+  - name: "gallery"
+    label: "📷 Gallery Photos"
+    folder: "_gallery"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Caption", name: "title", widget: "string", hint: "e.g. Sports Day June 2026" }
+      - { label: "Date", name: "date", widget: "datetime", date_format: "DD MMMM YYYY", time_format: false }
+      - { label: "Photo", name: "photo", widget: "image", hint: "Upload your photo here" }

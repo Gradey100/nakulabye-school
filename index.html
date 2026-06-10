@@ -1142,6 +1142,36 @@ const newsPosts = [
     title: 'Term 2 Update 2026',
     date: '10 June 2026',
     summary: 'Term 2 has begun with good attendance, but the school community faces significant challenges including wetland evictions, an Ebola outbreak in Kampala, and rising costs.',
+    content: `Dear friends,
+
+Greetings from Nakulabye Junior Primary School.
+
+I thank you for the continued support you are rendering to the needy children, school and the community at large. We really appreciate and we pray that the almighty Lord blesses you abundantly.
+
+The second term studies commenced on 27th May 2026. The turn up has been relatively fair as most of the learners have reported back in the second week of the term.
+
+We still have a lot of activities that are to take place in this very term including class day, academic tour, and sports day. I will be sharing updates in the reports to come.
+
+## Wetland Eviction
+
+Uganda's ongoing wetland restoration and eviction exercise has left many vulnerable families facing a humanitarian crisis. Many of the affected residents are ordinary citizens who invested their life savings in homes or small businesses. Today, some of these families are homeless, children have had their education disrupted, and many breadwinners have lost their means of survival.
+
+There are also growing concerns about perceived unequal enforcement — residents question why some large commercial developments near wetland areas appear to continue operating while poorer communities face immediate eviction. This has created feelings of injustice and frustration among affected populations.
+
+## Ebola
+
+Uganda continues to respond to an Ebola outbreak linked to cross-border transmission from the Democratic Republic of the Congo. As of 5 June 2026, Uganda had reported 19 confirmed cases and 2 deaths. Cases have primarily been reported in Kampala and neighbouring Wakiso District.
+
+The Ministry of Health has intensified case management, contact tracing, border screening, and community awareness campaigns. Affected households face significant challenges including loss of income, stigma, and disruptions to education.
+
+## Rising Costs
+
+Uganda is currently facing a rise in fuel prices due to global crude oil markets and regional tensions. This has greatly weakened the Uganda shilling against the US Dollar, raising prices of essential goods and services and reducing household purchasing power — particularly affecting low-income families.
+
+Your continued support means these children can keep coming to school despite everything happening around them. Thank you.
+
+**Zimbe Musa Moses**
+Head Teacher, Nakulabye Junior Primary School`
   }
 ];
 
@@ -1175,30 +1205,14 @@ function showPost(index) {
   list.style.display = 'none';
   postDiv.style.display = 'block';
 
-  // Fetch the markdown file and render it
-  fetch('/_posts/' + p.slug + '.md')
-    .then(r => r.text())
-    .then(md => {
-      // Strip front matter (between --- and ---)
-      const body = md.replace(/^---[\s\S]*?---\n/, '');
-      // Simple markdown to HTML conversion
-      const html = simpleMarkdown(body);
-      postDiv.innerHTML = `
-        <div class="news-post__back" onclick="loadNews()">← Back to all news</div>
-        <div class="news-post__date">${p.date}</div>
-        <div class="news-post__content">${html}</div>
-      `;
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    })
-    .catch(() => {
-      // Fallback if fetch fails - show summary
-      postDiv.innerHTML = `
-        <div class="news-post__back" onclick="loadNews()">← Back to all news</div>
-        <div class="news-post__date">${p.date}</div>
-        <h2 style="color:var(--navy);font-family:var(--font-display);margin-bottom:16px;">${p.title}</h2>
-        <div class="news-post__content"><p>${p.summary}</p></div>
-      `;
-    });
+  const html = p.content ? simpleMarkdown(p.content) : '<p>' + p.summary + '</p>';
+  postDiv.innerHTML = `
+    <div class="news-post__back" onclick="loadNews()">← Back to all news</div>
+    <div class="news-post__date">${p.date}</div>
+    <h2 style="color:var(--navy);font-family:var(--font-display);font-size:2rem;margin-bottom:24px;">${p.title}</h2>
+    <div class="news-post__content">${html}</div>
+  `;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function simpleMarkdown(text) {
